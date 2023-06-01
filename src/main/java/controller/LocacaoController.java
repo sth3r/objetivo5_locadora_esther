@@ -1,9 +1,7 @@
 package controller;
 
 public class LocacaoController {
-    create table Marcas(
-            marca_id int(10) auto_increment not null primary key,
-);
+    create table Marcas(marca_id int(10) auto_increment primary key);
 
     create table Modelos(
             mod_id int(10) auto_increment not null primary key,
