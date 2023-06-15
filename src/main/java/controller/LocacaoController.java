@@ -1,8 +1,92 @@
 package controller;
 
-public class LocacaoController {
+import dao.ClienteDAO;
+import model.Cliente;
 
+import java.util.Scanner;
+
+public class LocacaoController {
+    private static final Scanner input = new Scanner(System.in);
+    public static void main(String[] args) {
+        int opcao = 0;
+        do {
+            System.out.print("\n\"-------  MENU cliente -------\"");
+            System.out.print(
+                    """
+    
+                        1. Inserir novo cliente
+                        2. Atualizar um cliente
+                        3. Listar todos os clientes
+                        4. Buscar cliente pelo código
+                        5. Buscar clientes pelo nome
+                        6. Buscar clientes pela situação
+                        Opção (Zero p/sair):\s""");
+            opcao = input.nextInt();
+            input.nextLine();
+            switch (opcao) {
+                case 1 -> inserir();
+                case 2 -> atualizar();
+                case 3 -> selectClientes();
+                case 4 -> selectClientesById();
+                case 5 -> selectClientesByNome();
+                case 6 -> selectClientesBySituacao();
+                default -> {
+                    if (opcao != 0)
+                        System.out.println("Opção inválida.");
+                }
+            }
+        } while (opcao != 0);
+    }
+    private static void inserir() {
+        Cliente cliente = new Cliente();
+        System.out.println("\n++++++ Cadastro de novo Cliete ++++++");
+
+        System.out.print("Digite o nome do Cliente: ");
+        cliente.setNom_cliente(input.nextLine());
+
+        System.out.print("\nDigite o CPF: ");
+        cliente.setCpf_cliente(input.nextLong());
+
+        System.out.print("\nDigite o enedreço: ");
+        cliente.setEnd_cliente(input.nextLine());
+
+        System.out.print("\nDigite o telefone: ");
+        cliente.setTel_cliente(input.nextLine());
+
+        System.out.print("\nDigite o e-mail: ");
+        cliente.setEmail_cliente(input.nextLine());
+
+        input.nextLine(); //limpa o input
+
+        if(ClienteDAO.insertCliente(cliente)) {
+            System.out.println("\nProduto salvo com sucesso.");
+        }else {
+            System.out.println("\nHouve um erro ao salvar o produto. Por favor, contate o administrador do sistema.");
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    /* create table Marcas(
         marca_id int(10) auto_increment primary key,
     descricao varchar(50) not null
