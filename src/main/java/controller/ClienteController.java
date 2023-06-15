@@ -49,7 +49,7 @@ public class ClienteController {
         cliente.setEmail_cliente(input.nextLine());
         cliente.setEnd_cliente(input.nextLine());
         cliente.setTel_cliente(input.nextLine());
-        cliente.setLocacoes(input.next());
+
 
         if(ClienteDAO.insertCliente(cliente)) {
             System.out.println("\nCliente salvo com sucesso.");
