@@ -3,13 +3,15 @@ package model;
 import java.util.List;
 
 public class Cliente {
+    private int id_cli;
     private long cpf_cliente;
     private String nom_cliente, end_cliente, tel_cliente, email_cliente;
 
     private List<Locacao> locacoes;
 
 
-    public Cliente(long cpf_cliente, String nom_cliente, String end_cliente, String tel_cliente, String email_cliente, List<Locacao> locacoes) {
+    public Cliente(int id_cli, long cpf_cliente, String nom_cliente, String end_cliente, String tel_cliente, String email_cliente, List<Locacao> locacoes) {
+        this.id_cli = id_cli;
         this.cpf_cliente = cpf_cliente;
         this.nom_cliente = nom_cliente;
         this.end_cliente = end_cliente;
@@ -19,6 +21,14 @@ public class Cliente {
     }
 
     public Cliente() {
+    }
+
+    public int getId_cli() {
+        return id_cli;
+    }
+
+    public void setId_cli(int id_cli) {
+        this.id_cli = id_cli;
     }
 
     public long getCpf_cliente() {
@@ -72,7 +82,8 @@ public class Cliente {
     @Override
     public String toString() {
         return "Cliente{" +
-                "cpf_cliente=" + cpf_cliente +
+                "id_cli=" + id_cli +
+                ", cpf_cliente=" + cpf_cliente +
                 ", nom_cliente='" + nom_cliente + '\'' +
                 ", end_cliente='" + end_cliente + '\'' +
                 ", tel_cliente='" + tel_cliente + '\'' +

@@ -1,60 +1,48 @@
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Locacao {
-    private LocalDateTime dt_locacao, hora_locacao, dt_devolucao, hora_devolucao;
+    private LocalDateTime dt_hr_locacao, devolucao;
     private long quilometragem;
     private double valor_custacao, valor_locacao;
-    private int devolvido;
+    private boolean devolvido;
+    private int diasLocados;
 
     Automovel automovel;
 
-    public Locacao(LocalDateTime dt_locacao, LocalDateTime hora_locacao, LocalDateTime dt_devolucao, LocalDateTime hora_devolucao, long quilometragem, double valor_custacao, double valor_locacao, int devolvido, Automovel automovel) {
-        this.dt_locacao = dt_locacao;
-        this.hora_locacao = hora_locacao;
-        this.dt_devolucao = dt_devolucao;
-        this.hora_devolucao = hora_devolucao;
+    Cliente cliente;
+
+    public Locacao(LocalDateTime dt_hr_locacao, LocalDateTime devolucao, long quilometragem, double valor_custacao, double valor_locacao, int devolvido, Automovel automovel, int diasLocados) {
+        this.dt_hr_locacao = LocalDateTime.now();
+        this.valor_locacao = valor_locacao;
+        this.diasLocados = diasLocados;
+        this.devolucao = LocalDateTime.now() + getDiasLocados;
         this.quilometragem = quilometragem;
         this.valor_custacao = valor_custacao;
-        this.valor_locacao = valor_locacao;
         this.devolvido = devolvido;
         this.automovel = automovel;
+        this.cliente = cliente;
     }
 
     public Locacao() {
     }
 
-    public LocalDateTime getDt_locacao() {
-        return dt_locacao;
+    public LocalDateTime getDt_hr_locacao() {
+        return dt_hr_locacao;
     }
 
-    public void setDt_locacao(LocalDateTime dt_locacao) {
-        this.dt_locacao = dt_locacao;
+    public void setDt_hr_locacao(LocalDateTime dt_hr_locacao) {
+        this.dt_hr_locacao = dt_hr_locacao;
     }
 
-    public LocalDateTime getHora_locacao() {
-        return hora_locacao;
+    public LocalDateTime getDevolucao() {
+        return devolucao;
     }
 
-    public void setHora_locacao(LocalDateTime hora_locacao) {
-        this.hora_locacao = hora_locacao;
-    }
-
-    public LocalDateTime getDt_devolucao() {
-        return dt_devolucao;
-    }
-
-    public void setDt_devolucao(LocalDateTime dt_devolucao) {
-        this.dt_devolucao = dt_devolucao;
-    }
-
-    public LocalDateTime getHora_devolucao() {
-        return hora_devolucao;
-    }
-
-    public void setHora_devolucao(LocalDateTime hora_devolucao) {
-        this.hora_devolucao = hora_devolucao;
+    public void setDevolucao(LocalDateTime devolucao) {
+        this.devolucao = devolucao;
     }
 
     public long getQuilometragem() {
@@ -81,12 +69,20 @@ public class Locacao {
         this.valor_locacao = valor_locacao;
     }
 
-    public int getDevolvido() {
+    public boolean isDevolvido() {
         return devolvido;
     }
 
-    public void setDevolvido(int devolvido) {
+    public void setDevolvido(boolean devolvido) {
         this.devolvido = devolvido;
+    }
+
+    public int getDiasLocados() {
+        return diasLocados;
+    }
+
+    public void setDiasLocados(int diasLocados) {
+        this.diasLocados = diasLocados;
     }
 
     public Automovel getAutomovel() {
@@ -97,18 +93,26 @@ public class Locacao {
         this.automovel = automovel;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     @Override
     public String toString() {
         return "Locacao{" +
-                "dt_locacao=" + dt_locacao +
-                ", hora_locacao=" + hora_locacao +
-                ", dt_devolucao=" + dt_devolucao +
-                ", hora_devolucao=" + hora_devolucao +
+                "dt_hr_locacao=" + dt_hr_locacao +
+                ", devolucao=" + devolucao +
                 ", quilometragem=" + quilometragem +
                 ", valor_custacao=" + valor_custacao +
                 ", valor_locacao=" + valor_locacao +
                 ", devolvido=" + devolvido +
+                ", diasLocados=" + diasLocados +
                 ", automovel=" + automovel +
+                ", cliente=" + cliente +
                 '}';
     }
 }

@@ -1,9 +1,15 @@
 package controller;
 
 import dao.ClienteDAO;
+import dao.LocacaoDAO;
+import model.Automovel;
 import model.Cliente;
+import model.Locacao;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
+
+import static dao.LocacaoDAO.selectLocacao;
 
 public class LocacaoController {
     private static final Scanner input = new Scanner(System.in);
@@ -14,22 +20,16 @@ public class LocacaoController {
             System.out.print(
                     """
     
-                        1. Inserir novo cliente
-                        2. Atualizar um cliente
-                        3. Listar todos os clientes
-                        4. Buscar cliente pelo código
-                        5. Buscar clientes pelo nome
-                        6. Buscar clientes pela situação
+                        1. Locar um automovel
+                        3. Listar todas as locacoes
+                        4. Buscar locacao pelo código
                         Opção (Zero p/sair):\s""");
             opcao = input.nextInt();
             input.nextLine();
             switch (opcao) {
-                case 1 -> inserir();
-                case 2 -> atualizar();
-                case 3 -> selectClientes();
-                case 4 -> selectClientesById();
-                case 5 -> selectClientesByNome();
-                case 6 -> selectClientesBySituacao();
+                case 1 -> locar();
+                case 3 -> selectLocacoes();
+                case 4 -> selectLocacaoById();
                 default -> {
                     if (opcao != 0)
                         System.out.println("Opção inválida.");
@@ -37,33 +37,59 @@ public class LocacaoController {
             }
         } while (opcao != 0);
     }
-    private static void inserir() {
-        Cliente cliente = new Cliente();
-        System.out.println("\n++++++ Cadastro de novo Cliete ++++++");
+    private static void locar() {
+        Locacao locacao = new Locacao();
+        System.out.println("\n++++++ Locar um automovel ++++++");
 
-        System.out.print("Digite o nome do Cliente: ");
-        cliente.setNom_cliente(input.nextLine());
+        System.out.print("id do Cliente: ");
+        locacao.setCliente(input.nextInt());
 
-        System.out.print("\nDigite o CPF: ");
-        cliente.setCpf_cliente(input.nextLong());
+        System.out.print("Tempo de locação: ");
+        locacao.setDiasLocados(input.nextInt());
 
-        System.out.print("\nDigite o enedreço: ");
-        cliente.setEnd_cliente(input.nextLine());
+        System.out.print("quilometragem: ");
+        locacao.setQuilometragem(input.nextLong());
 
-        System.out.print("\nDigite o telefone: ");
-        cliente.setTel_cliente(input.nextLine());
+        System.out.print("valor custação: ");
+        locacao.setValor_custacao(input.nextLong());
 
-        System.out.print("\nDigite o e-mail: ");
-        cliente.setEmail_cliente(input.nextLine());
+        System.out.print("valor locação: ");
+        locacao.setValor_locacao(input.nextLong());
+
+        System.out.print("devolvido?: ");
+        locacao.setDevolvido(input.nextBoolean());
+
+        System.out.print("automovel: ");
+        locacao.setAutomovel(input.next);
+
+        System.out.print("quilometragem: ");
+        locacao.setQuilometragem(input.nextLong());
+
 
         input.nextLine(); //limpa o input
 
-        if(ClienteDAO.insertCliente(cliente)) {
-            System.out.println("\nProduto salvo com sucesso.");
+        if(LocacaoDAO.locar(locacao)) {
+            System.out.println("\nLocação salvo com sucesso.");
         }else {
-            System.out.println("\nHouve um erro ao salvar o produto. Por favor, contate o administrador do sistema.");
+            System.out.println("\nHouve um erro ao locar o carro. Por favor, contate o administrador do sistema.");
         }
     }
+
+    private static void selectLocacoes(){
+        System.out.println("\nLista de locacoes feitas no banco de dados:\n" + LocacaoDAO.selectLocacao());
+    }
+
+    private static void selectLocacaoById() {
+        System.out.print("\nDigite o código da locação: ");
+        Locacao locacao = LocacaoDAO.selectLocacaoById(input.nextInt());
+        input.nextLine();
+        if(locacao != null){
+            System.out.println(locacao);
+        }else{
+            System.out.println("Código não localizado.");
+        }
+    }
+
 }
 
 
